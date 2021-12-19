@@ -14,3 +14,16 @@
   padding-top: 10px;
   padding-left: 40px;
 }
+#search-results {
+  border-top: 4px solid cornflowerblue;
+}
+.card-body {
+  margin-top: 10px;
+  height: 400px;
+  text-align: left;
+}
+li {
+  padding-top: 10px;
+  font-size: 22px;
+  font-weight: bold;
+}
