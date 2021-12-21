@@ -47,7 +47,18 @@ $(document).ready(function () {
               console.log(data);
               let uvVal = data.current.uvi;
               $("#uv").append(" " + uvVal);
-              let day0 = data.daily.0. 
+              let theData = data.daily.slice(0, 5);
+
+              for (let i = 0; i < theData.length; i++) {
+                let dailyTemp = theData[i].temp.day;
+                console.log(dailyTemp);
+                let dailyWind = theData[i].wind_speed;
+                console.log(dailyWind);
+                let dailyHumidity = theData[i].humidity;
+                console.log(dailyHumidity);
+
+                $("#theDay").append(dailyTemp);
+              }
             });
         });
     };

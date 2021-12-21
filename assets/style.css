@@ -27,3 +27,8 @@ li {
   font-size: 22px;
   font-weight: bold;
 }
+#dayweather {
+  height: 150px;
+  margin-left: 60px;
+  background-color: cornflowerblue;
+}
