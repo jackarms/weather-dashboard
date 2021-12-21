@@ -48,17 +48,19 @@ $(document).ready(function () {
               let uvVal = data.current.uvi;
               $("#uv").append(" " + uvVal);
               let theData = data.daily.slice(0, 5);
+              console.log(theData);
 
-              for (let i = 0; i < theData.length; i++) {
-                let dailyTemp = theData[i].temp.day;
-                console.log(dailyTemp);
-                let dailyWind = theData[i].wind_speed;
-                console.log(dailyWind);
-                let dailyHumidity = theData[i].humidity;
-                console.log(dailyHumidity);
-
-                $("#theDay").append(dailyTemp);
-              }
+              $.each(theData, function (key, value) {
+                let date = new Date(this.dt).toLocaleDateString("en-US");
+                inputData = [
+                  "Humidity:" + value.humidity + "%",
+                  "Windspeed:" + value.wind_speed + "MPH",
+                  "Temperature:" + value.temp.day + "°F",
+                ];
+                $.each(inputData, function (index, value) {
+                  console.log(index);
+                });
+              });
             });
         });
     };
