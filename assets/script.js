@@ -49,21 +49,45 @@ $(document).ready(function () {
               $("#uv").append(" " + uvVal);
               let theData = data.daily.slice(0, 5);
               console.log(theData);
-
-              $.each(theData, function (key, value) {
-                let date = new Date(this.dt).toLocaleDateString("en-US");
-                inputData = [
-                  "Humidity:" + value.humidity + "%",
-                  "Windspeed:" + value.wind_speed + "MPH",
-                  "Temperature:" + value.temp.day + "°F",
-                ];
-                $.each(inputData, function (index, value) {
-                  console.log(index);
-                });
-              });
             });
-        });
+          });
     };
     getCityWeather();
   });
 });
+
+$(document).ready(function () {
+  $("#searchBtn").click(function () {
+    async function showForecast() {
+      let city2 =  $("input").val();
+      console.log(city2)
+      forecastResponse = await fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + city2 + "&appid=3727e6df52e0ca7f0482d054586ff709&units=imperial")
+      weatherForecast = await forecastResponse.json();
+      let lat = weatherForecast.city.coord.lat
+      let lon = weatherForecast.city.coord.lon
+
+      secondForecastResponse = await fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" +
+      lat +
+      "&lon=" +
+      lon +
+      "&appid=3727e6df52e0ca7f0482d054586ff709&units=imperial")
+      secondWeatherForecast = await secondForecastResponse.json();
+      console.log(secondWeatherForecast)
+      theDays = secondWeatherForecast.daily
+      var removed = theDays.splice(5,3)
+      length = 5
+      for(let i =0; i < theDays.length; i++) {
+        let timeStamp = theDays[i].dt 
+        let date = new Date(timeStamp * 1000)
+        let myDate = date.toLocaleDateString("en-US")
+        let dayTemp = theDays[i].temp.day
+        let dayHumidity = theDays[i].humidity
+        let dayWind = theDays[i].wind_speed
+        $("#theDay").append($('<ul><li>' + myDate + '</li>' + '<li>' + "Temp: " + dayTemp + "°F" + '</li><li>' + "Humidity: " + dayHumidity + "%" + '</li><li>' + "Wind: " + dayWind + "MPH" + '</li></ul>'))
+
+      }
+      
+    }
+    showForecast();
+  })
+})
