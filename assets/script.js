@@ -80,6 +80,7 @@ $(document).ready(function () {
         let timeStamp = theDays[i].dt 
         let date = new Date(timeStamp * 1000)
         let myDate = date.toLocaleDateString("en-US")
+        
         let dayTemp = theDays[i].temp.day
         let dayHumidity = theDays[i].humidity
         let dayWind = theDays[i].wind_speed
@@ -89,5 +90,18 @@ $(document).ready(function () {
       
     }
     showForecast();
+  })
+})
+
+$(document).ready(function () {
+  $("#searchBtn").click(function () {
+    var searchText = $("input").val();
+    var searchHistory = localStorage.setItem('searchInput',searchText)
+    function getHistory () {
+    let history = localStorage.getItem('searchInput')
+    console.log(history) 
+    $('#search-results').append($('<p>' + history + '</p>'))
+  }
+  getHistory()
   })
 })
